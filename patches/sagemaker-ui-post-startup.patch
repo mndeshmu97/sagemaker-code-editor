@@ -32,7 +32,7 @@ Index: sagemaker-code-editor/vscode/src/vs/server/node/webClientServer.ts
  				return this._handleWebExtensionResource(req, res, parsedUrl);
  			}
 +			if (pathname === this._postStartupScriptRoute) {
-+                return this._handlePostStartupScriptInvocation(req, res);
++				return this._handlePostStartupScriptInvocation(req, res);
 +            }
  
  			return serveError(req, res, 404, 'Not found.');
