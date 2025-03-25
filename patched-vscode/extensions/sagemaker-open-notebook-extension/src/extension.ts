@@ -11,7 +11,7 @@ export function activate() {
     const notebookKey = config.get('notebookKey') as string;
     const clusterId = config.get('clusterId') as string;
     const region = config.get('region') as string;
-    if(notebookKey){
+    if (notebookKey) {
         loadAndDisplayNotebook(notebookKey, clusterId, region);
     }
 
@@ -28,7 +28,7 @@ async function loadAndDisplayNotebook(fileKey: string, clusterId: string, region
         vscode.window.showErrorMessage('Invalid region format. Region should only contain characters, numbers, and hyphens.');
         return;
     }
-    
+
     const bucketName = `jumpstart-cache-prod-${region}`;
     const url = `https://${bucketName}.s3.${region}.amazonaws.com/${fileKey}`;
     try {
@@ -47,8 +47,8 @@ async function loadAndDisplayNotebook(fileKey: string, clusterId: string, region
 function processNotebookContent(content: string, clusterId: string, region: string): string {
     const notebook = JSON.parse(content);
     notebook.cells = notebook.cells.map((cell: any) => {
-        if (cell.metadata && 
-            cell.metadata.jumpStartAlterations && 
+        if (cell.metadata &&
+            cell.metadata.jumpStartAlterations &&
             cell.metadata.jumpStartAlterations.includes('clusterId')) {
             cell.source = [
                 "%%bash\n",
@@ -57,8 +57,8 @@ function processNotebookContent(content: string, clusterId: string, region: stri
             cell.cell_type = "code";
         }
 
-        if (cell.metadata && 
-            cell.metadata.jumpStartAlterations && 
+        if (cell.metadata &&
+            cell.metadata.jumpStartAlterations &&
             cell.metadata.jumpStartAlterations.includes('clusterName')) {
             cell.source = [
                 `!hyperpod connect-cluster --cluster-name ${clusterId}`
@@ -97,4 +97,4 @@ function downloadFile(url: string): Promise<string> {
         });
     });
 }
-export function deactivate() {}
+export function deactivate() { }
