@@ -152,7 +152,7 @@ export class WebClientServer {
 			}
 			if (pathname === this._postStartupScriptRoute) {
 				return this._handlePostStartupScriptInvocation(req, res);
-            }
+			}
 
 			return serveError(req, res, 404, 'Not found.');
 		} catch (error) {
@@ -491,8 +491,8 @@ export class WebClientServer {
 	}
 
 	/**
-    * Handles API requests to run the post-startup script in SMD.
-    */
+	 * Handles API requests to run the post-startup script in SMD.
+	*/
 	private async _handlePostStartupScriptInvocation(req: http.IncomingMessage, res: http.ServerResponse): Promise<void> {
 		const postStartupScripPath = '/etc/sagemaker-ui/sagemaker_ui_post_startup.sh'
 		const logPath = '/var/log/apps/post_startup_default.log';
